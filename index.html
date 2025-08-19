@@ -97,9 +97,10 @@
       display: none;
      }
     }
+    .flag { font-size: 1.5rem; line-height: 1; }
+    .flag[title] { cursor: help; }
   </style>
 </head>
-
 <body>
   <div class="container-main pdg mrg body-style">
     <h1 class="ShowOnWide"><strong>NEMANJA MILOSAVLJEVIC</strong></h1>
@@ -210,7 +211,7 @@
     <ul>
       <li>I live in Nuremberg, Germany</li>
       <li>I am married, since 2016</li>
-      <li>I speak proficient English, Russian, Serbian, German, Scots, and limited Italian</li>
+      <li>I speak proficient <span class="flag" data-cc="GB" title="United Kingdom"></span>, Russian, Serbian, German, Scots, and limited Italian</li>
       <li>Passionate Climber and Skier</li>
       <li>Animal Rescue</li>
       <li>Mathematics, Machine Learning</li>
@@ -227,4 +228,20 @@
     <p>Email: nemanjovski@gmail.com</p>  
     </code>
   </div>
+  <script>
+    function ccToFlagEmoji(cc) {
+      return cc
+        .toUpperCase()
+        .replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt()));
+    }
+
+    document.querySelectorAll('.flag[data-cc]').forEach(el => {
+      const cc = el.getAttribute('data-cc') || '';
+      el.textContent = ccToFlagEmoji(cc);
+      el.setAttribute('role', 'img');
+      if (!el.getAttribute('aria-label')) {
+        el.setAttribute('aria-label', cc);
+      }
+    });
+  </script>
 </body>
